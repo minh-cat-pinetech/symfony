@@ -16,3 +16,11 @@ template twig
 ```
 composer require symfony/twig-bundle
 ```
+local web server
+```
+composer require symfony/web-server-bundle --dev ^4.4.2
+```
+assets
+```
+composer require symfony/asset
+```
