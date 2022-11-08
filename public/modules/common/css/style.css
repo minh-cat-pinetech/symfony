@@ -1,0 +1,49 @@
+body {
+    height: 100%;
+}
+
+.wrapper {
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+.navbar {
+    background-color: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+a, a.page-link, a.nav-link {
+    color: #000;
+}
+
+a.page-link:hover, a.nav-link:hover {
+    color: #000;
+}
+
+.main {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.main .container {
+    background-color: #fff;
+    padding: 40px;
+}
+
+.footer {
+    background-color: #fff;
+    padding: 60px;
+}
+
+@media (max-width: 992px) {
+    .collapse-md {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .collapse-sm {
+        display: none;
+    }
+}

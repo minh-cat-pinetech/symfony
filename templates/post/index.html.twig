@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post Index{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('modules/post/css/style.css') }}"/>
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a href="#" class="navbar-brand">Symfony Crud</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main post">
+        <div class="container">
+            <div class="title clearfix">
+                <h1 class="float-start">Post Index</h1>
+                <a href="{{ path('post.create') }}" class="btn btn-primary float-end">New Post</a>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form action="" class="row">
+                        <div class="col-auto">
+                            <label for="search" class="visually-hidden">Search</label>
+                            <input type="text" class="form-control" placeholder="ex: abc">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Title</th>
+                                <th scope="col" class="collapse-md">Excerpt</th>
+                                <th scope="col" class="collapse-md">Image</th>
+                                <th scope="col" class="collapse-sm">SEO Keyword</th>
+                                <th scope="col" class="collapse-sm">Categories</th>
+                                <th scope="col">Tags</th>
+                                <th scope="col">State</th>
+                                <th scope="col" style="width:217px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Hello World</td>
+                                <td class="collapse-md">This is Hello Word Post</td>
+                                <td class="collapse-md">
+                                    <img src="{{ asset('images/image-001.jpg') }}">
+                                </td>
+                                <td class="collapse-sm">hello world</td>
+                                <td class="collapse-sm">post new hot</td>
+                                <td>post new hot</td>
+                                <td><span class="badge bg-success">show</span></td>
+                                <td>
+                                    <button class="btn btn-success">Detail</button>
+                                    <button class="btn btn-primary">Edit</button>
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Hello World</td>
+                                <td class="collapse-md">This is Hello Word Post</td>
+                                <td class="collapse-md">
+                                    <img src="{{ asset('images/image-001.jpg') }}">
+                                </td>
+                                <td class="collapse-sm">hello world</td>
+                                <td class="collapse-sm">post new hot</td>
+                                <td>post new hot</td>
+                                <td><span class="badge bg-success">show</span></td>
+                                <td>
+                                    <button class="btn btn-success">Detail</button>
+                                    <button class="btn btn-primary">Edit</button>
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Hello World</td>
+                                <td class="collapse-md">This is Hello Word Post</td>
+                                <td class="collapse-md">
+                                    <img src="{{ asset('images/image-001.jpg') }}">
+                                </td>
+                                <td class="collapse-sm">hello world</td>
+                                <td class="collapse-sm">post new hot</td>
+                                <td>post new hot</td>
+                                <td><span class="badge bg-success">show</span></td>
+                                <td>
+                                    <button class="btn btn-success">Detail</button>
+                                    <button class="btn btn-primary">Edit</button>
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="text-center">Symfony Crud Example Page by New Pine Multimedia Technology</p>
+    </footer>
+</div>
+{% endblock %}

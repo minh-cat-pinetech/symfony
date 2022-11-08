@@ -1,0 +1,16 @@
+.post .card {
+    margin-bottom: 20px;
+}
+
+.post .card .table img {
+    width: 50px;
+}
+
+.post .card.image .card-header {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.post .card.image img {
+    width: 100%;
+}
