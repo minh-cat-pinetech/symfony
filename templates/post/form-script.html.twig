@@ -1,0 +1,54 @@
+<script>
+$(document).ready(function() {
+
+    function setCategories() {
+        let main_value = $('#post_categories').val();
+        let main_value_list
+        try {
+            main_value_list = JSON.parse(main_value);
+        } catch (e) {
+            main_value_list = [];
+        }
+        main_value_list.forEach(function(value) {
+            console.log(value)
+            $('.categories #' + value).prop('checked', true);
+        })
+    }
+    setCategories();
+
+    $(".categories input").change(function() {
+        let main_value = $('#post_categories').val();
+        let main_value_list
+        try {
+            main_value_list = JSON.parse(main_value);
+        } catch (e) {
+            main_value_list = [];
+        }
+        let value = $(this).val();
+        if ($(this).prop('checked')) {
+            main_value_list.push(value);
+            main_value_list = JSON.stringify(main_value_list);
+            $('#post_categories').val(main_value_list);
+            console.log(main_value_list)
+        } else {
+            main_value_list = $.grep(main_value_list, function(val) {
+                return val !== value
+            })
+            main_value_list = JSON.stringify(main_value_list);
+            $('#post_categories').val(main_value_list);
+            console.log(main_value_list)
+        }
+    });
+
+    $('#post_image').change(function() {
+        const file = this.files[0];
+        if (file){
+            let reader = new FileReader();
+            reader.onload = function(event){
+                $('#image_preview').attr('src', event.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+});
+</script>

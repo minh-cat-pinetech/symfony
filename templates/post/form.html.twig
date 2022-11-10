@@ -1,0 +1,94 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        {{ form_label(form.title) }}
+                        {{ form_widget(form.title) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.excerpt) }}
+                        {{ form_widget(form.excerpt) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.content) }}
+                        {{ form_widget(form.content) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.seo_keyword) }}
+                        {{ form_widget(form.seo_keyword) }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_label(form.tags) }}
+                        {{ form_widget(form.tags) }}
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-2">State</div>
+                            <div class="col-10">
+                                {{ form_widget(form.state) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: none;">
+                        {{ form_widget(form.categories) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card image">
+                <div class="card-header text-center">
+                    <img class="rounded" src="{{ asset('images/img_avatar3.png') }}" alt="Card image" id="image_preview">
+                </div>
+                <div class="card-body text-center">
+                    {{ form_label(form.image) }}
+                    {{ form_widget(form.image) }}
+                    {# <button class="btn btn-primary">Upload Image</button> #}
+                </div>
+            </div>
+            <div class="card categories">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        Categories
+                    </div>
+                    <div class="list-group-item">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="category1" id="category1">
+                            <label class="form-check-label" for="category1">
+                                Category 1
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="category2" id="category2">
+                            <label class="form-check-label" for="category2">
+                                Category 2
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" value="category3" id="category3">
+                            <label class="form-check-label" for="category3">
+                                Category 3
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" value="category4" id="category4">
+                            <label class="form-check-label" for="category4">
+                                Category 4
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="category5" id="category5">
+                            <label class="form-check-label" for="category5">
+                                Category 5
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}

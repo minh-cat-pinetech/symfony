@@ -32,3 +32,11 @@ make form
 ```
 composer require form validator
 ```
+build pagination
+```
+composer require knplabs/knp-paginator-bundle
+```
+upload file
+```
+composer require symfony/mime
+```

@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Services\FileUploader;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/post", name="post.")
@@ -33,7 +36,7 @@ class PostController extends AbstractController
     /**
      * @Route("/create", name="create")
      */
-    public function create(Request $request, PostRepository $postRepository)
+    public function create(Request $request, PostRepository $postRepository, FileUploader $fileUploader)
     {
         $form = $this->createForm(PostType::class);
 
@@ -41,7 +44,13 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted()) {
             $data = $form->getData();
-            $data->setImage('image-001.jpg');
+
+            // handle image
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $imageName = $fileUploader->upload($image);
+                $data->setImage($imageName);
+            }
 
             $postRepository->add($data, true);
             $this->addFlash('success', 'Create post completed!');
@@ -56,7 +65,7 @@ class PostController extends AbstractController
     /**
      * @Route("/edit/{id}", name="edit")
      */
-    public function edit($id, Request $request, ManagerRegistry $doctrine)
+    public function edit($id, Request $request, ManagerRegistry $doctrine, FileUploader $fileUploader)
     {
         $entityManager = $doctrine->getManager();
         $post = $entityManager->getRepository(Post::class)->find($id);
@@ -65,8 +74,14 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            // $data = $form->getData();
-            // $entityManager = $doctrine->getManager();
+            $data = $form->getData();
+            // handle image
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $imageName = $fileUploader->upload($image);
+                $data->setImage($imageName);
+            }
+            $entityManager = $doctrine->getManager();
             
             $entityManager->flush();
             $this->addFlash('success', 'Update post completed!');

@@ -6,9 +6,11 @@ use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class PostType extends AbstractType
 {
@@ -42,6 +44,29 @@ class PostType extends AbstractType
                     'class' => 'form-control',
                     'rows'  => '10',
                     'cols'  => '30'
+                ]
+            ])
+            ->add('image', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/jpg',
+                            'application/x-jpg',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid JPG',
+                    ])
+                ],
+                'attr' => [
+                    'id' => 'upload_image',
+                    'style' => 'display: none;'
+                ],
+                'label' => 'Upload Image',
+                'label_attr' => [
+                    'class' => 'btn btn-primary',
+                    'for'   => 'upload_image'
                 ]
             ])
             ->add('seo_keyword', null, [
