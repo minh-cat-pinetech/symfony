@@ -14,3 +14,8 @@
 .post .card.image img {
     width: 100%;
 }
+
+.post form #post_state label {
+    margin-left: 8px;
+    margin-right: 16px;
+}
