@@ -7,34 +7,11 @@
 {% endblock %}
 
 {% block body %}
-<div class="wrapper">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a href="#" class="navbar-brand">Symfony Crud</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('post.index') }}">Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                </li>
-            </ul>
-            </div>
-        </div>
-    </nav>
-
     <main class="main post">
         <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
             <div class="title clearfix">
                 <h1 class="float-start">Post Index</h1>
                 <a href="{{ path('post.create') }}" class="btn btn-primary float-end">New Post</a>
@@ -69,57 +46,31 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for post in posts %}
                             <tr>
-                                <td>1</td>
-                                <td>Hello World</td>
-                                <td class="collapse-md">This is Hello Word Post</td>
+                                <td>{{ post.id }}</td>
+                                <td>{{ post.title }}</td>
+                                <td class="collapse-md">{{ post.excerpt }}</td>
                                 <td class="collapse-md">
-                                    <img src="{{ asset('images/image-001.jpg') }}">
+                                    <img src="{{ asset('images/' ~ post.image) }}">
                                 </td>
-                                <td class="collapse-sm">hello world</td>
-                                <td class="collapse-sm">post new hot</td>
-                                <td>post new hot</td>
-                                <td><span class="badge bg-success">show</span></td>
+                                <td class="collapse-sm">{{ post.seoKeyword }}</td>
+                                <td class="collapse-sm">{{ post.categories }}</td>
+                                <td>{{ post.tags }}</td>
+                                <td>
+                                    {% if post.state == constant('App\\Entity\\Post::SHOW') %}
+                                    <span class="badge bg-success">show</span>
+                                    {% elseif post.state == constant('App\\Entity\\Post::HIDE') %}
+                                    <span class="badge bg-danger">hide</span>
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <button class="btn btn-success">Detail</button>
-                                    <button class="btn btn-primary">Edit</button>
-                                    <button class="btn btn-danger">Delete</button>
+                                    <a class="btn btn-primary" href="{{ path('post.edit', {id: post.id}) }}">Edit</a>
+                                    <a class="btn btn-danger" href="{{ path('post.delete', {id: post.id}) }}">Delete</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Hello World</td>
-                                <td class="collapse-md">This is Hello Word Post</td>
-                                <td class="collapse-md">
-                                    <img src="{{ asset('images/image-001.jpg') }}">
-                                </td>
-                                <td class="collapse-sm">hello world</td>
-                                <td class="collapse-sm">post new hot</td>
-                                <td>post new hot</td>
-                                <td><span class="badge bg-success">show</span></td>
-                                <td>
-                                    <button class="btn btn-success">Detail</button>
-                                    <button class="btn btn-primary">Edit</button>
-                                    <button class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Hello World</td>
-                                <td class="collapse-md">This is Hello Word Post</td>
-                                <td class="collapse-md">
-                                    <img src="{{ asset('images/image-001.jpg') }}">
-                                </td>
-                                <td class="collapse-sm">hello world</td>
-                                <td class="collapse-sm">post new hot</td>
-                                <td>post new hot</td>
-                                <td><span class="badge bg-success">show</span></td>
-                                <td>
-                                    <button class="btn btn-success">Detail</button>
-                                    <button class="btn btn-primary">Edit</button>
-                                    <button class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                     <ul class="pagination justify-content-end">
@@ -133,9 +84,4 @@
             </div>
         </div>
     </main>
-
-    <footer class="footer">
-        <p class="text-center">Symfony Crud Example Page by New Pine Multimedia Technology</p>
-    </footer>
-</div>
 {% endblock %}

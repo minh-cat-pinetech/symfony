@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post Create{% endblock %}
+{% block title %}Post Update{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('modules/post/css/style.css') }}"/>
@@ -10,7 +10,7 @@
     <main class="main post">
         <div class="container">
             <div class="title clearfix">
-                <h1 class="float-start">Post Create</h1>
+                <h1 class="float-start">Post Update</h1>
             </div>
             {{ form_start(form) }}
                 <div class="row">
@@ -106,7 +106,6 @@
             {{ form_end(form) }}
         </div>
     </main>
-
 <script>
 $(document).ready(function() {
 
