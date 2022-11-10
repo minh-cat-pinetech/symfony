@@ -6,6 +6,11 @@
     width: 50px;
 }
 
+.post .card .table td.action {
+    /* display: flex; */
+    /* justify-content: space-between; */
+}
+
 .post .card.image .card-header {
     padding-top: 16px;
     padding-bottom: 16px;

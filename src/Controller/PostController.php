@@ -7,9 +7,6 @@ use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -97,10 +94,15 @@ class PostController extends AbstractController
      */
     public function search(Request $request, PostRepository $postRepository)
     {
-        $data = $request->request->all();
-        dump($data);
+        $searchKey = $request->query->all();
 
-        $posts = $postRepository->findBy();
+        $query = $postRepository->createQueryBuilder('post')
+                                ->where('post.title LIKE :title')
+                                ->setParameter('title', '%'.$searchKey['title'].'%')
+                                ->getQuery();
+        $posts = $query->getResult();
+
+        return $this->json(['posts' => $posts]);
     }
 
     private function convertCategories(&$posts)

@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
  */
-class Post
+class Post implements JsonSerializable
 {
     public const SHOW = 0;
     public const HIDE = 1;
@@ -158,5 +159,19 @@ class Post
         $this->state = $state;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id'            => $this->id,
+            'title'         => $this->title,
+            'excerpt'       => $this->excerpt,
+            'image'         => $this->image,
+            'seo_keyword'   => $this->seo_keyword,
+            'categories'    => $this->categories,
+            'tags'          => $this->tags,
+            'state'         => $this->state,
+        ];
     }
 }

@@ -134,10 +134,19 @@ $(document).ready(function() {
             main_value_list = [];
         }
         let value = $(this).val();
-        main_value_list.push(value);
-        main_value_list = JSON.stringify(main_value_list);
-        $('#post_categories').val(main_value_list);
-        console.log(main_value_list)
+        if ($(this).prop('checked')) {
+            main_value_list.push(value);
+            main_value_list = JSON.stringify(main_value_list);
+            $('#post_categories').val(main_value_list);
+            console.log(main_value_list)
+        } else {
+            main_value_list = $.grep(main_value_list, function(val) {
+                return val !== value
+            })
+            main_value_list = JSON.stringify(main_value_list);
+            $('#post_categories').val(main_value_list);
+            console.log(main_value_list)
+        }
     });
 });
 </script>

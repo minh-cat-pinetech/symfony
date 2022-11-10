@@ -7,81 +7,133 @@
 {% endblock %}
 
 {% block body %}
-    <main class="main post">
-        <div class="container">
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success">{{ message }}</div>
-            {% endfor %}
-            <div class="title clearfix">
-                <h1 class="float-start">Post Index</h1>
-                <a href="{{ path('post.create') }}" class="btn btn-primary float-end">New Post</a>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <form action="" class="row">
-                        <div class="col-auto">
-                            <label for="search" class="visually-hidden">Search</label>
-                            <input type="text" class="form-control" placeholder="ex: abc">
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-primary">Search</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Title</th>
-                                <th scope="col" class="collapse-md">Excerpt</th>
-                                <th scope="col" class="collapse-md">Image</th>
-                                <th scope="col" class="collapse-sm">SEO Keyword</th>
-                                <th scope="col" class="collapse-sm">Categories</th>
-                                <th scope="col">Tags</th>
-                                <th scope="col">State</th>
-                                <th scope="col" style="width:217px;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for post in posts %}
-                            <tr>
-                                <td>{{ post.id }}</td>
-                                <td>{{ post.title }}</td>
-                                <td class="collapse-md">{{ post.excerpt }}</td>
-                                <td class="collapse-md">
-                                    <img src="{{ asset('images/' ~ post.image) }}">
-                                </td>
-                                <td class="collapse-sm">{{ post.seoKeyword }}</td>
-                                <td class="collapse-sm">{{ post.categories }}</td>
-                                <td>{{ post.tags }}</td>
-                                <td>
-                                    {% if post.state == constant('App\\Entity\\Post::SHOW') %}
-                                    <span class="badge bg-success">show</span>
-                                    {% elseif post.state == constant('App\\Entity\\Post::HIDE') %}
-                                    <span class="badge bg-danger">hide</span>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <button class="btn btn-success">Detail</button>
-                                    <a class="btn btn-primary" href="{{ path('post.edit', {id: post.id}) }}">Edit</a>
-                                    <a class="btn btn-danger" href="{{ path('post.delete', {id: post.id}) }}">Delete</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </div>
+<main class="main post">
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="title clearfix">
+            <h1 class="float-start">Post Index</h1>
+            <a href="{{ path('post.create') }}" class="btn btn-primary float-end">New Post</a>
+        </div>
+        <div class="card search-box">
+            <div class="card-body">
+                <form action="" class="row">
+                    <div class="col-auto">
+                        <label for="search" class="visually-hidden">Search</label>
+                        <input type="text" class="form-control" placeholder="ex: abc" id="search_input">
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary" id="search_button" type="button">Search</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </main>
+        <div class="card content-box">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Title</th>
+                            <th scope="col" class="collapse-md">Excerpt</th>
+                            <th scope="col" class="collapse-md">Image</th>
+                            <th scope="col" class="collapse-sm">SEO Keyword</th>
+                            <th scope="col" class="collapse-sm">Categories</th>
+                            <th scope="col">Tags</th>
+                            <th scope="col">State</th>
+                            <th scope="col" style="width:217px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                        <tr>
+                            <td>{{ post.id }}</td>
+                            <td>{{ post.title }}</td>
+                            <td class="collapse-md">{{ post.excerpt }}</td>
+                            <td class="collapse-md">
+                                <img src="{{ asset('images/' ~ post.image) }}">
+                            </td>
+                            <td class="collapse-sm">{{ post.seoKeyword }}</td>
+                            <td class="collapse-sm">{{ post.categories }}</td>
+                            <td>{{ post.tags }}</td>
+                            <td>
+                                {% if post.state == constant('App\\Entity\\Post::SHOW') %}
+                                <span class="badge bg-success">show</span>
+                                {% elseif post.state == constant('App\\Entity\\Post::HIDE') %}
+                                <span class="badge bg-danger">hide</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button class="btn btn-success">Detail</button>
+                                <a class="btn btn-primary" href="{{ path('post.edit', {id: post.id}) }}">Edit</a>
+                                <a class="btn btn-danger" href="{{ path('post.delete', {id: post.id}) }}">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <ul class="pagination justify-content-end">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+$(document).ready(function() {
+    $('.search-box #search_button').click(function() {
+        let keyword = $('.search-box #search_input').val()
+        console.log('keyword', keyword)
+        $.ajax({
+            url: '{{ path('post.search') }}' + '?title=' + keyword,
+            success: function(data) {
+                console.log(data)
+                let $rows = ''
+                let $action = ''
+                let editRoute = "{{ path('post.edit', {id: 'post_id'}) }}"
+                let deleteRoute = "{{ path('post.edit', {id: 'post_id'}) }}"
+                data['posts'].forEach(function(column) {
+                    console.log(column)
+                    let $columns = '';
+                    $.each(column, function(key, value) {
+                        console.log(key, value)
+                        if (key == 'id') {
+                            let editRoutePrivate = editRoute.replace('post_id', value)
+                            let deleteRoutePrivate = deleteRoute.replace('post_id', value)
+                            $detailButton = '<button class="btn btn-success">Detail</button>'
+                            $editButton = "<a class='btn btn-primary ms-1' href='" + editRoutePrivate + "'>Edit</a>"
+                            $deleteButton = "<a class='btn btn-danger ms-1' href='" + deleteRoutePrivate + "'>Delete</a>"
+                            $action += '<td class="action">' + $detailButton + $editButton + $deleteButton + '</td>'
+                            $columns += '<td>' + value + '</td>'
+                        } else if (key == 'image') {
+                            $columns += '<td class="collapse-md"><img src="{{ asset('images/') }}' + value + '"/></td>'
+                        } else if (key == 'state') {
+                            if (value == 0) {
+                                $columns += '<td><span class="badge bg-success">show</span></td>'
+                            } else if (value == 1) {
+                                $columns += '<td><span class="badge bg-danger">hide</span></td>'
+                            }
+                        } else if (key == 'categories') {
+                            value = JSON.parse(value)
+                            value = value.join(', ')
+                            $columns += '<td>' + value + '</td>'
+                        } else {
+                            $columns += '<td>' + value + '</td>'
+                        }
+                    })
+                    $rows += '<tr>' + $columns + $action + '</tr>'
+                    $action = ''
+                })
+                $('.content-box table tbody').html($rows);
+            }
+        })
+    })
+});
+</script>
 {% endblock %}
