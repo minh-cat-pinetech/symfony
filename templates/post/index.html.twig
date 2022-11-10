@@ -65,7 +65,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <button class="btn btn-success">Detail</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#detail_post_{{ post.id }}">Detail</button>
                                 <a class="btn btn-primary" href="{{ path('post.edit', {id: post.id}) }}">Edit</a>
                                 <a class="btn btn-danger" href="{{ path('post.delete', {id: post.id}) }}">Delete</a>
                             </td>
@@ -73,17 +73,37 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <ul class="pagination justify-content-end">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
+                <div class="pagination-block">
+                    {{ knp_pagination_render(posts) }}
+                </div>
             </div>
         </div>
     </div>
 </main>
+
+{% for post in posts %}
+<div class="modal" id="detail_post_{{ post.id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <h4 class="modal-title">Detail</h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>Title: </strong> {{ post.title }}</p>
+                <p><strong>State: </strong> {{ post.state == 0 ? 'show' : 'hide' }}</p>
+                <p><strong>Excerpt: </strong> {{ post.excerpt }}</p>
+                <p><strong>Categories: </strong> {{ post.categories }}</p>
+                <p><strong>Content: </strong></p><p>{{ post.content }}</p>
+                <p><strong>SEO Keyword: </strong> {{ post.seoKeyword }}</p>
+                <p><strong>Tags: </strong> {{ post.tags }}</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button class="btn btn-success" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 
 <script>
 $(document).ready(function() {
