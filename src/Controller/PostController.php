@@ -92,16 +92,15 @@ class PostController extends AbstractController
         return $this->redirect($this->generateUrl('post.index'));
     }
 
-    private function makeCategories($data)
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search(Request $request, PostRepository $postRepository)
     {
-        $cateListName = ['category1', 'category2', 'category3', 'category4', 'category5'];
-        $cateListValue = [];
-        foreach ($cateListName as $cate) {
-            if ($data[$cate]) {
-                $cateListValue[] = $cate;
-            }
-        }
-        return implode(', ', $cateListValue);
+        $data = $request->request->all();
+        dump($data);
+
+        $posts = $postRepository->findBy();
     }
 
     private function convertCategories(&$posts)
