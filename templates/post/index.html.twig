@@ -40,7 +40,7 @@
                             <th scope="col" class="collapse-md">Image</th>
                             <th scope="col" class="collapse-sm">SEO Keyword</th>
                             <th scope="col" class="collapse-sm">Categories</th>
-                            <th scope="col">Tags</th>
+                            <th scope="col" class="collapse-md">Tags</th>
                             <th scope="col">State</th>
                             <th scope="col" style="width:217px;">Action</th>
                         </tr>
@@ -56,7 +56,7 @@
                             </td>
                             <td class="collapse-sm">{{ post.seoKeyword }}</td>
                             <td class="collapse-sm">{{ post.categories }}</td>
-                            <td>{{ post.tags }}</td>
+                            <td class="collapse-md">{{ post.tags }}</td>
                             <td>
                                 {% if post.state == constant('App\\Entity\\Post::SHOW') %}
                                 <span class="badge bg-success">show</span>
