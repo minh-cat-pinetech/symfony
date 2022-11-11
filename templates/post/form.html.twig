@@ -42,7 +42,11 @@
         <div class="col-3">
             <div class="card image">
                 <div class="card-header text-center">
+                    {% if form.vars['value'] == null %}
                     <img class="rounded" src="{{ asset('images/img_avatar3.png') }}" alt="Card image" id="image_preview">
+                    {% else %}
+                    <img class="rounded" src="{{ asset('uploads/images/' ~ form.vars['value'].image) }}" alt="Card image" id="image_preview">
+                    {% endif %}
                 </div>
                 <div class="card-body text-center">
                     {{ form_label(form.image) }}

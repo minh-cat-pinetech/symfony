@@ -33,7 +33,7 @@ a.page-link:hover, a.nav-link:hover {
 
 .footer {
     background-color: #fff;
-    padding: 60px;
+    padding: 40px;
 }
 
 @media (max-width: 992px) {

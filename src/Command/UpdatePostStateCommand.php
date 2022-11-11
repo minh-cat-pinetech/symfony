@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'post:update-state')]
 class UpdatePostStateCommand extends Command
 {
+    protected static $defaultDescription = 'Update a post state.';
     private $entityManager;
     private $postRepository;
 
@@ -24,7 +25,6 @@ class UpdatePostStateCommand extends Command
         $this->postRepository = $this->entityManager->getRepository(Post::class);
         parent::__construct();
     }
-    protected static $defaultDescription = 'Update a post state.';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

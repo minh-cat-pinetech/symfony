@@ -56,6 +56,9 @@ class PostController extends AbstractController
             $this->addFlash('success', 'Create post completed!');
             return $this->redirect($this->generateUrl('post.index'));
         }
+        // dump($form->createView());
+        // dump($form->createView()->vars);
+        // die;
 
         return $this->render('post/create.html.twig', [
             'form'  => $form->createView(),
@@ -120,10 +123,39 @@ class PostController extends AbstractController
                                 ->setParameter('title', '%'.$searchKey['title'].'%')
                                 ->getQuery();
         $posts = $query->getResult();
+        $posts = array_slice($posts, 0, 5);
+        $this->convertCategories($posts);
 
-        return $this->json(['posts' => $posts]);
+        // return $this->json(['posts' => $posts]);
+        return $this->render('post/table.html.twig', [
+            'posts'  => $posts,
+        ]);
     }
 
+    /**
+     * @Route("/pagination", name="pagination")
+     */
+    public function paginationAPI(Request $request, PostRepository $postRepository, PaginatorInterface $paginator)
+    {
+        $searchKey = $request->query->all();
+
+        $query = $postRepository->createQueryBuilder('post')
+                                ->where('post.title LIKE :title')
+                                ->setParameter('title', '%'.$searchKey['title'].'%')
+                                ->getQuery();
+        $posts = $query->getResult();
+        $this->convertCategories($posts);
+        $posts = $paginator->paginate($posts, $request->query->getInt('page', 1), 5);
+
+        // return $this->json(['posts' => $posts]);
+        return $this->render('post/pagination.html.twig', [
+            'posts'  => $posts,
+        ]);
+    }
+
+    /**
+     * @param Post[] $posts
+     */
     private function convertCategories(&$posts)
     {
         foreach ($posts as &$post) {

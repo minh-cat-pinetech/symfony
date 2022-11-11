@@ -113,6 +113,29 @@ $(document).ready(function() {
         $.ajax({
             url: '{{ path('post.search') }}' + '?title=' + keyword,
             success: function(data) {
+                $('.content-box table tbody').html(data);
+            }
+        })
+        $.ajax({
+            url: '{{ path('post.pagination') }}' + '?title=' + keyword,
+            success: function(data) {
+                $('.pagination-block').html(data);
+                $('.pagination-block .page-item a.page-link').each(function(i, el) {
+                    let link = $(el).attr('href')
+                    if (link) {
+                        link = link.replace('/pagination', '')
+                        $(el).attr('href', link)
+                    }
+                })
+            }
+        })
+    })
+    $('.search-box #search_button.old').click(function() {
+        let keyword = $('.search-box #search_input').val()
+        console.log('keyword', keyword)
+        $.ajax({
+            url: '{{ path('post.search') }}' + '?title=' + keyword,
+            success: function(data) {
                 console.log(data)
                 let $rows = ''
                 let $action = ''
