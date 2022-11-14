@@ -113,67 +113,14 @@ $(document).ready(function() {
         $.ajax({
             url: '{{ path('post.search') }}' + '?title=' + keyword,
             success: function(data) {
-                $('.content-box table tbody').html(data);
-            }
-        })
-        $.ajax({
-            url: '{{ path('post.pagination') }}' + '?title=' + keyword,
-            success: function(data) {
-                $('.pagination-block').html(data);
+                $('.content-box .card-body').html(data);
                 $('.pagination-block .page-item a.page-link').each(function(i, el) {
                     let link = $(el).attr('href')
                     if (link) {
-                        link = link.replace('/pagination', '')
+                        link = link.replace('/search', '')
                         $(el).attr('href', link)
                     }
                 })
-            }
-        })
-    })
-    $('.search-box #search_button.old').click(function() {
-        let keyword = $('.search-box #search_input').val()
-        console.log('keyword', keyword)
-        $.ajax({
-            url: '{{ path('post.search') }}' + '?title=' + keyword,
-            success: function(data) {
-                console.log(data)
-                let $rows = ''
-                let $action = ''
-                let editRoute = "{{ path('post.edit', {id: 'post_id'}) }}"
-                let deleteRoute = "{{ path('post.edit', {id: 'post_id'}) }}"
-                data['posts'].forEach(function(column) {
-                    console.log(column)
-                    let $columns = '';
-                    $.each(column, function(key, value) {
-                        console.log(key, value)
-                        if (key == 'id') {
-                            let editRoutePrivate = editRoute.replace('post_id', value)
-                            let deleteRoutePrivate = deleteRoute.replace('post_id', value)
-                            $detailButton = '<button class="btn btn-success">Detail</button>'
-                            $editButton = "<a class='btn btn-primary ms-1' href='" + editRoutePrivate + "'>Edit</a>"
-                            $deleteButton = "<a class='btn btn-danger ms-1' href='" + deleteRoutePrivate + "'>Delete</a>"
-                            $action += '<td class="action">' + $detailButton + $editButton + $deleteButton + '</td>'
-                            $columns += '<td>' + value + '</td>'
-                        } else if (key == 'image') {
-                            $columns += '<td class="collapse-md"><img src="{{ asset('uploads/images/') }}' + value + '"/></td>'
-                        } else if (key == 'state') {
-                            if (value == 0) {
-                                $columns += '<td><span class="badge bg-success">show</span></td>'
-                            } else if (value == 1) {
-                                $columns += '<td><span class="badge bg-danger">hide</span></td>'
-                            }
-                        } else if (key == 'categories') {
-                            value = JSON.parse(value)
-                            value = value.join(', ')
-                            $columns += '<td>' + value + '</td>'
-                        } else {
-                            $columns += '<td>' + value + '</td>'
-                        }
-                    })
-                    $rows += '<tr>' + $columns + $action + '</tr>'
-                    $action = ''
-                })
-                $('.content-box table tbody').html($rows);
             }
         })
     })

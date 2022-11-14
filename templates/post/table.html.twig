@@ -1,25 +1,32 @@
-{% for post in posts %}
-<tr>
-    <td>{{ post.id }}</td>
-    <td>{{ post.title }}</td>
-    <td class="collapse-md">{{ post.excerpt }}</td>
-    <td class="collapse-md">
-        <img src="{{ asset('uploads/images/' ~ post.image) }}">
-    </td>
-    <td class="collapse-sm">{{ post.seoKeyword }}</td>
-    <td class="collapse-sm">{{ post.categories }}</td>
-    <td>{{ post.tags }}</td>
-    <td>
-        {% if post.state == constant('App\\Entity\\Post::SHOW') %}
-        <span class="badge bg-success">show</span>
-        {% elseif post.state == constant('App\\Entity\\Post::HIDE') %}
-        <span class="badge bg-danger">hide</span>
-        {% endif %}
-    </td>
-    <td>
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#detail_post_{{ post.id }}">Detail</button>
-        <a class="btn btn-primary" href="{{ path('post.edit', {id: post.id}) }}">Edit</a>
-        <a class="btn btn-danger" href="{{ path('post.delete', {id: post.id}) }}">Delete</a>
-    </td>
-</tr>
-{% endfor %}
+<table class="table">
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.id }}</td>
+            <td>{{ post.title }}</td>
+            <td class="collapse-md">{{ post.excerpt }}</td>
+            <td class="collapse-md">
+                <img src="{{ asset('uploads/images/' ~ post.image) }}">
+            </td>
+            <td class="collapse-sm">{{ post.seoKeyword }}</td>
+            <td class="collapse-sm">{{ post.categories }}</td>
+            <td>{{ post.tags }}</td>
+            <td>
+                {% if post.state == constant('App\\Entity\\Post::SHOW') %}
+                <span class="badge bg-success">show</span>
+                {% elseif post.state == constant('App\\Entity\\Post::HIDE') %}
+                <span class="badge bg-danger">hide</span>
+                {% endif %}
+            </td>
+            <td>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#detail_post_{{ post.id }}">Detail</button>
+                <a class="btn btn-primary" href="{{ path('post.edit', {id: post.id}) }}">Edit</a>
+                <a class="btn btn-danger" href="{{ path('post.delete', {id: post.id}) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="pagination-block">
+    {{ knp_pagination_render(posts) }}
+</div>

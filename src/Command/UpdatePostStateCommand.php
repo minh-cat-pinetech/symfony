@@ -34,13 +34,31 @@ class UpdatePostStateCommand extends Command
             '',
         ]);
         // retrieve the argument value using getArgument()
-        $output->writeln('Post Id: '.$input->getArgument('id'));
+        if (($id = $input->getArgument('id')) !== null) {
+            if ($id = intval($id)) {
+                $output->writeln('Post Id: ' . $id);
 
-        $post = $this->postRepository->find($input->getArgument('id'));
-        $state = $post->getState();
-        $state = $state == Post::SHOW ? Post::HIDE : Post::SHOW;
-        $post->setState($state);
-        $this->entityManager->flush();
+                $post = $this->postRepository->find($id);
+                $state = $post->getState();
+                $newState = $state == Post::SHOW ? Post::HIDE : Post::SHOW;
+                $post->setState($newState);
+                $this->entityManager->flush();
+                $output->writeln('Post update state with id=' . $id . ' completed');
+            } else {
+                $output->writeln('Post Id Invalid');
+            }
+        } else {
+            $output->writeln('Post update state all');
+
+            $posts = $this->postRepository->findAll();
+            foreach ($posts as $post) {
+                $state = $post->getState();
+                $newState = $state == Post::SHOW ? Post::HIDE : Post::SHOW;
+                $post->setState($newState);
+            }
+            $this->entityManager->flush();
+            $output->writeln('Post update all state completed');
+        }
 
         return Command::SUCCESS;
     }
@@ -48,7 +66,7 @@ class UpdatePostStateCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('id', InputArgument::REQUIRED, 'The post id of the user.')
+            ->addArgument('id', InputArgument::OPTIONAL, 'The post id of the user.')
             // the command help shown when running the command with the "--help" option
             ->setHelp('This command allows you to update a post state...')
         ;
