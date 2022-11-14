@@ -115,6 +115,9 @@ class Post implements JsonSerializable
 
     public function getCategories(): ?string
     {
+        if ($this->categories !== '' && $this->categories !== null) {
+            return implode(', ', json_decode($this->categories));
+        }
         return $this->categories;
     }
 

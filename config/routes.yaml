@@ -1,3 +1,23 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+post.index:
+    path: /post
+    controller: App\Controller\PostController::index
+
+post.create:
+    path: /post/create
+    controller: App\Controller\PostController::create
+
+post.edit:
+    path: /post/update/{id}
+    controller: App\Controller\PostController::edit
+
+post.delete:
+    path: /post/delete/{id}
+    controller: App\Controller\PostController::delete
+
+post.search:
+    path: /post/search
+    controller: App\Controller\PostController::search
+
+post.pagination:
+    path: /post/pagination
+    controller: App\Controller\PostController::pagination

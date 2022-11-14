@@ -40,3 +40,7 @@ upload file
 ```
 composer require symfony/mime
 ```
+debug toolbar
+```
+composer require --dev symfony/profiler-pack
+```

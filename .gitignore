@@ -3,6 +3,8 @@
 /.env.local
 /.env.local.php
 /.env.*.local
+/composer.lock
+/symfony.lock
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
@@ -12,3 +14,6 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+/public/images/
+/public/uploads/
