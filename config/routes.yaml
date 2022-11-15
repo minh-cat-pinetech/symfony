@@ -21,3 +21,15 @@ post.search:
 post.pagination:
     path: /post/pagination
     controller: App\Controller\PostController::pagination
+
+auth.register:
+    path: /register
+    controller: App\Controller\RegisterController::index
+
+auth.login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+auth.logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
